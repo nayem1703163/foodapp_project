@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="album py-5 bg-light">
+<div class="container">
+<div class="row">
+{% for food in foods %}
+
+<div class="card-group">
+  <div class="card mb-4">
+    <img src="{{ food.food_image.url }}" class="card-img-top" alt="No image found" max-height: 100% max-width: 100% >
+    <div class="card-body">
+      <h5 class="card-title">{{ food.food_name }}</h5>
+      <p class="card-text">Info :{{ food.food_info }}</p>
+      <p class="card-text">Price :{{ food.price }}</p>
+
+    </div>
+    <a href="#" class="btn btn-primary">Buy</a>
+ </div>
+</div>
+{% endfor %}
+</div>
+</div>
+</div>
+{% endblock %}
