@@ -29,6 +29,10 @@
 	    <div class="form-inline my-2 my-lg-0">
 	     	<a href="{% url 'login_user' %}"class="btn btn-warning">Login</a>
 			<a href="{% url 'signup_user' %}"class="btn btn-warning">Register</a>
+			<form class="logout-link" action="{% url 'logout_user' %}" method="post">
+				{% csrf_token %}
+				<button type="submit"> Logout </button>
+			</form>
 	     	
 	    
 
