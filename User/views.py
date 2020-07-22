@@ -16,7 +16,6 @@ def login_user(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-           # form.save()
             # loged in
             return redirect("reslist")
     else:
