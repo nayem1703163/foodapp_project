@@ -7,8 +7,8 @@ def signup_user(request):
     if request.method=='POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            user_= form.save()
-            login(request,user_)
+            user= form.save()
+            login(request,user)
             return redirect("reslist")
     else:
         form = UserCreationForm()
@@ -19,8 +19,8 @@ def login_user(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-            user_ = form.get_user()
-            login(request,user_)
+            user = form.get_user()
+            login(request,user)
             return redirect("reslist")
     else:
         form = AuthenticationForm()
@@ -28,6 +28,6 @@ def login_user(request):
 
 def logout_user(request):
     if request.method == 'POST':
-         logout(request)
-    return redirect("reslist")
+        logout(request)
+        return redirect("reslist")
 #Finish
