@@ -30,4 +30,4 @@ def logout_user(request):
     if request.method == 'POST':
          logout(request)
     return redirect("reslist")
-
+#Finish
