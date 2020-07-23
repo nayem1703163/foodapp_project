@@ -21,7 +21,10 @@ def login_user(request):
         if form.is_valid():
             user = form.get_user()
             login(request,user)
-            return redirect("reslist")
+            if "next" in request.POST:
+                return redirect(request.POST.get("next"))
+            else:
+                return redirect("reslist")
     else:
         form = AuthenticationForm()
     return render(request, "User/login.html", {"form": form})
