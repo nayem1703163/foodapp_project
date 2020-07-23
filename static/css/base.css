@@ -5,6 +5,37 @@ body{
 h1,h2,h3,h4,h5,h6{
 	color:hsl(0, 0%, 30%);
 }
+
+.helptext {
+    display: block;
+    font-size: 0;
+    visibility:hidden;
+}
+.errorlist{
+    list-style: none;
+    padding: 0px;
+    font-size: 0.7em;
+    color: #ff5722;
+}
+.site-form{
+    margin-top: 60px;
+    border: 3px solid #ffc107;
+    padding: 20px;
+}
+.site-form input, .site-form textarea{
+    display: block;
+    margin: 20px 0 0 0;
+    padding: 10px;
+}
+.site-form input[type="submit"]{
+    background: #ffc107;
+    border:0;
+    color: #fff;
+    font-size: 1.2em;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
 .box-element{
 	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
 	background-color: #fff;
