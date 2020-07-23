@@ -6,17 +6,25 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib import admin
 
 class UserCreationFormExtended(UserCreationForm):
-    def __init__(self, *args, **kwargs):
-        super(UserCreationFormExtended, self).__init__(*args, **kwargs)
-        self.fields['email'] = forms.EmailField(label=_("E-mail"), max_length=75)
+    email = forms.EmailField(required=True)
 
-UserAdmin.add_form = UserCreationFormExtended
-UserAdmin.add_fieldsets = (
-    (None, {
-        'classes': ('wide',),
-        'fields': ('email', 'username', 'password1', 'password2',)
-    }),
-)
+    class Meta:
+        model = User
 
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+        fields = (
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'password1',
+            'password2'
+        )
+    def save(self, commit=True):
+        user = super(UserCreationFormExtended, self).save( commit=False)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.email = self.cleaned_data['email']
+
+        if commit:
+            user.save()
+        return user
