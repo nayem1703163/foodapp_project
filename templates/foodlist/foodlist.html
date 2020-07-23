@@ -14,7 +14,7 @@
       <p class="card-text">Price :{{ food.price }}</p>
 
     </div>
-    <a href="#" class="btn btn-primary">Buy</a>
+    <a href="{% url 'cart' %}" class="btn btn-primary">Buy</a>
  </div>
 </div>
 {% endfor %}

@@ -6,5 +6,6 @@ from django.conf.urls import url
 urlpatterns =[
     path('admin/', admin.site.urls),
     path('', include('reslist.urls')),
-    url(r'^user/',include('User.url'))
+    url(r'^user/',include('User.url')),
+    url('',include('foodlist.urls'))
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
