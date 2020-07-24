@@ -1,19 +1,24 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
-from User.admin import UserCreationFormExtended
+from User.forms import UserCreationFormExtended,UserProfileForm
 
 # Create your views here.____________
 def signup_user(request):
     if request.method=='POST':
         form = UserCreationFormExtended(request.POST)
-        if form.is_valid():
+        profile = UserProfileForm(request.POST)
+        if form.is_valid() and profile.is_valid():
             user= form.save()
+            p = profile.save(commit=False)
+            p.user = user
+            p.save()
             login(request,user)
             return redirect("reslist")
     else:
         form = UserCreationFormExtended()
-    return render(request,"User/signup.html",{"form":form})
+        profile = UserProfileForm()
+    return render(request,"User/signup.html",{"form":form,"profile" : profile})
 
 
 def login_user(request):
