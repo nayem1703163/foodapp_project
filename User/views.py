@@ -2,7 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from User.forms import UserCreationFormExtended,UserProfileForm
-
+from django.http import JsonResponse
+import json
+import datetime
+from .models import *
+from .utils import cartData 
 # Create your views here.____________
 def signup_user(request):
     if request.method=='POST':
@@ -40,3 +44,24 @@ def logout_user(request):
         logout(request)
         return redirect("reslist")
 #Finish
+
+
+def cart(request):
+	data = cartData(request)
+
+	cartItems = data['cartItems']
+	order = data['order']
+	items = data['items']
+
+	context = {'items':items, 'order':order, 'cartItems':cartItems}
+	return render(request, 'store/cart.html', context)
+
+def checkout(request):
+	data = cartData(request)
+	
+	cartItems = data['cartItems']
+	order = data['order']
+	items = data['items']
+
+	context = {'items':items, 'order':order, 'cartItems':cartItems}
+	return render(request, 'store/checkout.html', context)

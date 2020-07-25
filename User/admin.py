@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import admin
-from .models import UserProfile
+from .models import *
 
 class UserCreationFormExtended(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -30,3 +30,6 @@ class UserCreationFormExtended(UserCreationForm):
             user.save()
         return user
 admin.site.register(UserProfile)
+admin.site.register(Order)
+admin.site.register(OrderItem)
+admin.site.register(ShippingAddress)
