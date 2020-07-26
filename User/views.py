@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from User.forms import UserCreationFormExtended,UserProfileForm
+from django.http import HttpResponse
 # Create your views here.____________
 def signup_user(request):
     if request.method=='POST':
@@ -13,7 +14,13 @@ def signup_user(request):
             p.user = user
             p.save()
             login(request,user)
-            return redirect("reslist")
+            if "next" in request.POST:
+                return redirect(request.POST.get("next"))
+            else:
+                if (user.userprofile.check == 'khadok'):
+                    return redirect("reslist")
+                else:
+                    return HttpResponse(user.userprofile.check)
     else:
         form = UserCreationFormExtended()
         profile = UserProfileForm()
