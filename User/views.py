@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from User.forms import UserCreationFormExtended,UserProfileForm
@@ -12,12 +12,18 @@ def signup_user(request):
             p = profile.save(commit=False)
             p.user = user
             p.save()
-            login(request,user)
-            return redirect("reslist")
+            grahok = login(request,user)
+            if(user.userprofile.check == 'khadok'):
+                return redirect("reslist")
+            if(user.userprofile.check == 'rider'):
+                return HttpResponse('This is rider')
+            if(user.userprofile.check == 'store'):
+                return HttpResponse('This is store')
+
     else:
         form = UserCreationFormExtended()
         profile = UserProfileForm()
-    return render(request,"User/signup.html",{"form":form,"profile" : profile})
+        return render(request,"User/signup.html",{"form":form,"profile" : profile})
 
 
 def login_user(request):
@@ -39,3 +45,4 @@ def logout_user(request):
         logout(request)
         return redirect("reslist")
 #Finish
+

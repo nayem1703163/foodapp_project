@@ -10,9 +10,31 @@ CHOICES= [
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    check = models.CharField(max_length=30,choices=CHOICES)
+    check = models.CharField(max_length=30, choices= CHOICES)
 
 
     def __str__(self):
         return self.user.username 
-        return self.check
+    @property
+    def check_khadok(self):
+        _ = self.check
+        if( _ == 'khadok'):
+            return True
+        else:
+            return False
+
+    @property
+    def check_rider(self):
+        _ = self.check
+        if ( _ == 'rider'):
+            return True
+        else:
+            return False
+
+    @property
+    def check_store(self):
+        _ = self.check
+        if ( _ == 'store'):
+            return True
+        else:
+            return False
