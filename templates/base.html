@@ -35,6 +35,9 @@
 	    </div>
 	    <div class="form-inline my-2 my-lg-0">
 			{% if user.is_authenticated %}
+			<p>
+				Welcome {{user.userprofile.check}}
+			</p>
 				<a href="javascript:{document.getElementById('logout_user').submit()}" class="btn btn-warning">Logout</a>
 				<form id="logout_user" action="{% url 'logout' %}" method='POST'>
 				{% csrf_token %}
