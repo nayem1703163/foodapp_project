@@ -5,8 +5,8 @@
     <form class="site-form" action="{% url 'signup_user' %}" method='POST'>
         {% csrf_token %}
         {{ form }}
+        {{ profile }}
         <input type="submit" value="Register">
     </form>
-
 {% endblock %}
 
