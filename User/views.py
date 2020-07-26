@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect,HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from User.forms import UserCreationFormExtended,UserProfileForm
+from django.http import HttpResponse
 # Create your views here.____________
 def signup_user(request):
     if request.method=='POST':
@@ -12,18 +13,18 @@ def signup_user(request):
             p = profile.save(commit=False)
             p.user = user
             p.save()
-            grahok = login(request,user)
-            if(user.userprofile.check == 'khadok'):
-                return redirect("reslist")
-            if(user.userprofile.check == 'rider'):
-                return HttpResponse('This is rider')
-            if(user.userprofile.check == 'store'):
-                return HttpResponse('This is store')
-
+            login(request,user)
+            if "next" in request.POST:
+                return redirect(request.POST.get("next"))
+            else:
+                if (user.userprofile.check == 'khadok'):
+                    return redirect("reslist")
+                else:
+                    return HttpResponse(user.userprofile.check)
     else:
         form = UserCreationFormExtended()
         profile = UserProfileForm()
-        return render(request,"User/signup.html",{"form":form,"profile" : profile})
+    return render(request,"User/signup.html",{"form":form,"profile" : profile})
 
 
 def login_user(request):
@@ -45,4 +46,3 @@ def logout_user(request):
         logout(request)
         return redirect("reslist")
 #Finish
-
